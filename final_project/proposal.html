@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6; /* Increased for better readability */
+        color: #32323a;
+        background-color: #f9f9fb; /* Slight off-white for a cleaner look */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        background-color: #ffffff;
+        width: 90%;
+        max-width: 800px; /* Limits width so it doesn't get too wide on big monitors */
+        margin: 40px 0;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Adds a nice subtle depth */
+        border-radius: 8px;
+    }
+    h1 {
+        text-align: center;
+        color: #b30000; /* A "Project Hail Mary" Red */
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    h2 {
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+        color: #1a1a1c;
+    }
+    h3 {
+        color: #4a4a52;
+    }
+    li {
+        margin-bottom: 8px;
+    }
+    b {
+        display: block;
+        margin-top: 15px;
+        font-size: 1.1rem;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Project Hail Minecraft</h1>
+        <h2>Summary</h2>
+        <p>Our project aims to implement Minecraft shaders to evoke the same lighting and coloring of the movie <i>Project Hail Mary</i>. From Minecraft’s default visuals with flat lighting, we aim to transform the Minecraft world into a visually distinct “dying star” scenario by implementing a red sky and the dim foreground is in deep, cold shadows.</p>
+        <h3>Team Members:</h3>
+        <ul>
+            <li>Nicholas Angelici</li>
+            <li>Kathleen Hua</li>
+            <li>Mandy Pham</li>
+            <li>Sophia Prakasa</li>
+        </ul>
+        <h2>Problem Description</h2>
+        <p>Minecraft’s default rendering system produces flat, ambient lighting with a bright white sun to create a uniform daytime appearance. In <i>Project Hail Mary</i>, the Earth is facing an extinction-level event as an alien lifeform is orbiting the Sun and consuming its light output. To implement this, we will need to develop a rendering pipeline that doesn’t just dim the screen, but filters out the light. Since we’re trying to make the game darker, we also have to ensure that the shadows look realistic while keeping game elements visible. We’ll implement the Astrophage as light particles in the sky and also simulate a <i>redshifted star and light occlusion</i>. We’ll do this by implementing a custom shader pack for the game.</p>
+        <h2>Goals and Deliverables</h2>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; margin: 32px 0 40px 0;">
+                    <figure style="flex: 1 1 200px; min-width: 180px; text-align: center;">
+                        <img src="minecraftRegular.png" alt="Minecraft Regular" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <figcaption style="margin-top: 8px; font-size: 1rem; color: #444;">Minecraft (Regular)</figcaption>
+                    </figure>
+                    <figure style="flex: 1 1 200px; min-width: 180px; text-align: center;">
+                        <img src="minecraftBright.png" alt="Minecraft Bright Shader" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <figcaption style="margin-top: 8px; font-size: 1rem; color: #444;">Minecraft Bright Shader Pack Example</figcaption>
+                    </figure>
+                    <figure style="flex: 1 1 200px; min-width: 180px; text-align: center;">
+                        <img src="minecraftRed.png" alt="Minecraft Red Shader" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <figcaption style="margin-top: 8px; font-size: 1rem; color: #444;">Minecraft Red Shader Pack Example</figcaption>
+                    </figure>
+                    <figure style="flex: 1 1 200px; min-width: 180px; text-align: center;">
+                        <img src="projHailMaryRed.png" alt="Project Hail Mary Reference" style="max-width: 100%; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                        <figcaption style="margin-top: 8px; font-size: 1rem; color: #444;">Project Hail Mary Reference</figcaption>
+                    </figure>
+                </div>
+        <h3>1. Baseline</h3>
+        <b>Volumetric Astrophage Swarm:</b>
+        <ul>
+            <li><b>Technique:</b> Real-time volumetric particle scattering.</li>
+            <li><b>Goal:</b> Instead of just flat red fog, we will implement a shader that renders thousands of microscopic, emissive particles. This "Petrova Line" swarm must be dense enough to visibly occlude distant geometry (the ship) and the sun, matching the visual texture of the particles in the inspiration image.</li>
+        </ul>
+        <b>High Dynamic Range (HDR) Bloom & Color-Grading:</b>
+        <ul>
+            <li><b>Technique:</b> Post-processing pipeline.</li>
+            <li><b>Goal:</b> The red lights and particles in our scene must not be just "pure red" (255, 0, 0). They must behave as intensely bright light sources that "bleed" past their geometric edges. We will implement an HDR bloom filter that creates the intense, glowing "halo" effect seen around the lights and dense particle clusters in the reference image.</li>
+        </ul>
+        <b>Static Lens Artifacts (Vignette & Grain):</b>
+        <ul>
+            <li><b>Technique:</b> Fragment shader effects.</li>
+            <li><b>Goal:</b> To match the cinematic look, we will apply a fixed film grain and heavy vignette effect, simulating the appearance of a space camera battling extreme light conditions.</li>
+        </ul>
+        <h3>2. Stretch Goals</h3>
+        <b>Dynamic Chromatic Aberration and Lens Flare:</b>
+        <ul>
+            <li><b>Technique:</b> Screen-space optical distortion.</li>
+            <li><b>Goal:</b> We hope to implement dynamic chromatic aberration that increases near bright light sources, simulating how a high-quality lens handles an over-exposed red light source. This will include creating procedural lens flares for bright red emission points (Lava/Glowstone).</li>
+        </ul>
+        <b>“Astrophage Absorption" Shadowing:</b>
+        <ul>
+            <li><b>Technique:</b> Advanced Screen Space Shadow Mapping.</li>
+            <li><b>Goal:</b> Standard SSAO adds shadow in corners; we want to implement an effect where the densest clusters of Astrophage particles themselves cast shadows, creating a visual effect where the "darkest" areas are actually crowded with the light-consuming organism, similar to how the darkest parts of the reference image are in deep, particle-heavy shadow.</li>
+        </ul>
+        <h3>3. Measuring Success</h3>
+        <b>Performance Metrics (Graphing):</b> We will provide a comparative FPS graph across three states: 1. Minecraft (no shaders), 2. Default standard shaders (e.g., SEUS), and 3. Our "Petrova Shaders," showing how our specific particle optimizations compare to standard techniques.<br>
+        <b>Visual Analysis:</b>
+        <ul>
+            <li>The Inspiration Reference Image (from Project Hail Mary).</li>
+            <li>Regular Minecraft rendering of a space-like structure.</li>
+            <li>Our final Minecraft rendering, annotated to point out exactly which specific techniques (Bloom, Volumetric Particles, Chromatic Distortion) correspond to the features of the inspiration image. We consider the project successful if our final rendering achieves a visual tone and texture comparable to the provided concept art.</li>
+        </ul>
+        <h2>Schedule</h2>
+        <ul>
+            <li><b>Week 1:</b> Scientific Visualization & Setup. Research the specific visual descriptions in Project Hail Mary (the dimming effect, the color of Petrova space). Set up the Minecraft dev environment (Iris/GLSL).</li>
+            <li><b>Week 2:</b> Core Lighting. Implement the fundamental color shift and light map dimming. This must make the daytime feel like a permanent, cold twilight.</li>
+            <li><b>Week 3:</b> The Petrova Line. Develop the high-altitude volumetric fog system. This is the main Hail Mary visual element. Test performance impact of dense fog.</li>
+            <li><b>Week 4:</b> Post-Processing & Report. Tune the post-processing effects. Record demo video contrasting "Regular" vs. "Operation Astrophage," specifically showing the sun and the resulting world lighting.</li>
+        </ul>
+        <h2>Resources</h2>
+        <ul>
+            <li><b>Platform:</b> PC (Windows/Linux), Minecraft Java Edition.</li>
+            <li><b>Software:</b> GLSL for shader programming, Iris Shader Mod (our preferred API hook) and VS Code (IDE).</li>
+            <li><b>References:</b> LearnOpenGL.com (Post-processing pipelines, Bloom, Volumetric Fog).</li>
+            <li>Descriptions/Conceptual Art from the Project Hail Mary novel and upcoming film adaptation for the visual profile of the dimmed sun and the Petrova Line.</li>
+        </ul>
+        <h3>Starter Code & Tutorials</h3>
+        <ul>
+            <li><a href="https://irisshaders.dev/" target="_blank">Iris Shader Starter Code</a></li>
+            <li><a href="https://youtube.com/playlist?list=PLn6IKc7V_f-EeKXbz5BI44esnKqtMoXfG&si=royzmBveSXWT0VvT" target="_blank">Minecraft Shader Tutorial Videos</a></li>
+            <li><a href="https://variety.com/2026/artisans/features/project-hail-mary-cinematography-greig-fraser-tunnel-scene-1236703573/" target="_blank">Project Hail Mary Lighting Interview</a></li>
+        </ul>
+    </div>
+</body>
+</html>
