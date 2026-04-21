@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestone Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #32323a;
+            background-color: #f9f9fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 800px;
+            margin: 40px 0;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #b30000;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            color: #1a1a1c;
+        }
+        h3 {
+            color: #4a4a52;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        b {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        a {
+            text-decoration: none;
+            color: #0057A8;
+        }
+        a:hover {
+            color: #8E018E !important;
+            text-decoration: underline;
+        }
+        .img-large {
+            display: block;
+            margin: 18px auto 24px auto;
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align:center; margin-bottom: 28px;">
+            <a href="https://youtu.be/3CDphH7Q_o8" id="video-link" style="font-weight:600; color:#b30000; margin-right:24px;">Watch Milestone Video</a>
+            <a href="https://docs.google.com/presentation/d/100VBF35g3-jTDw5Dvf1SCMahNxBZWT_yDE0f3P5lfZQ/edit?usp=sharing" id="slides-link" style="font-weight:600; color:#b30000;">View Presentation Slides</a>
+        </div>
+        <h1>Project Hail Minecraft - Milestone Report</h1>
+        <p><strong>Team Members:</strong> Nicholas Angelici, Kathleen Hua, Mandy Pham, Sophia Prakasa </p>
+        <h3>Summary of Accomplishments</h3>
+        <p>We have successfully established our Minecraft shader development environment and familiarized ourselves with the Iris shader workflow. We mapped the necessary file paths across operating systems, noting that on Windows, shader packs must be placed in the hidden <code>%appdata%\.minecraft\shaderpacks</code> directory, while the development repository should be cloned separately.</p>
+        <p>Our technical work has primarily focused on the <code>shaders/composite.fsh</code> file, which handles the full-screen post-processing effects by reading <code>colortex0</code> and outputting the final screen image. Through this, we successfully transitioned a basic grayscale tutorial into a functional red-screen shader. We learned that we can achieve our desired cinematic look by remapping the RGB output directly within the shader, rather than having to modify the base Minecraft engine.</p>
+        <h3>Preliminary Results</h3>
+        <p>We have successfully developed a working shader concept that produces a crimson cinematic grade. Our current build successfully layers multiple visual elements together, including glow, haze, glitter, dust, and a large red swirled sky inspired by our <em>Project Hail Mary</em> reference images.</p>
+        <div style="text-align:center;">
+            <img src="petrova.gif" alt="Petrova Line" class="img-large">
+            <div style="max-width: 320px; margin: 0 auto; color: #4a4a52; font-size: 1.05em;">
+                <b>Petrova Line</b>
+            </div>
+        </div>
+        <p>We also successfully implemented localized visual effects. For example, we programmed a dynamic environmental effect where the world gradually shifts to red as the player moves closer to a designated stream of light. Currently, our particle and dust effects operate in screen-space, effectively approximating the cinematic aesthetic of the Petrova Line and Astrophage without the heavy computational cost of rendering true 3D particles.</p>
+        <div style="text-align:center;">
+            <img src="adrian.gif" alt="Planet Adrian" class="img-large">
+            <div style="max-width: 320px; margin: 0 auto; color: #4a4a52; font-size: 1.05em;">
+                <b>Planet Adrian</b> The green planet from <i>Project Hail Mary</i>. We coded the End of Minecraft to look like this planet, recreating its unique green atmosphere and visual style as seen in the film.
+            </div>
+        </div>
+        <h3>Reflection on Progress</h3>
+        <p>Relative to our original project schedule, we are currently on track. We have completed our Week 1 setup goals and our Week 2 goals of implementing fundamental core lighting and color shifts. We have also made significant headway into our Week 3 goals by developing the aesthetic foundation for the Petrova Line swarm using post-processing effects.</p>
+        <p>Additionally, we have reviewed the TA feedback from our initial proposal. We recognize the need to finalize a specific benchmark scene to evaluate our final render, and we are working to clarify how our individual team responsibilities will be divided for the remaining tasks.</p>
+        <h3>Updated Work Plan</h3>
+        <ul>
+            <li><strong>Finalizing the Benchmark:</strong> We will select a specific Minecraft space-like structure scene to serve as our testing ground. We will use this to create our final visual analysis: a three-way side-by-side comparison of a <em>Project Hail Mary</em> reference image, vanilla Minecraft shading, and our custom rendering.</li>
+            <li><strong>Performance Metrics:</strong> After testing, we found that our new shader does not introduce noticeable delay or frame drops compared to vanilla Minecraft or standard shader packs. Instead of focusing on FPS graphs, we will qualitatively evaluate performance by describing the smoothness of gameplay and responsiveness, and highlight any visual trade-offs or optimizations made to maintain real-time rendering.</li>
+            <li><strong>Post-Processing Tuning & Demo:</strong> Following our Week 4 schedule, we will fine-tune the existing effects (like the vignette, bloom, and localized lighting) and record a demo video contrasting "Regular" Minecraft with our "Operation Astrophage" world.</li>
+            <li><strong>Stretch Goals / UI Integration:</strong> If time permits, we will explore the suggestion to build a UI that allows users to modify shader inputs in real-time (such as tweaking the color grading or light colors).</li>
+        </ul>
+    </div>
+</body>
+</html>
